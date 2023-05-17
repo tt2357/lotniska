@@ -12,11 +12,11 @@ namespace lotniska
 {
     public partial class Form2 : Form
     {
-        bool[] chs;
-        public Form2(bool[] a)
+        private ListViewItem selectedRow;
+        public Form2(ListViewItem selectedRow)
         {
-            bool[] x = a;
             InitializeComponent();
+            this.selectedRow = selectedRow;
         }
 
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
@@ -26,7 +26,7 @@ namespace lotniska
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            foreach(C
+            listView1.Items.Add(selectedRow);
         }
     }
 }
