@@ -12,21 +12,26 @@ namespace lotniska
 {
     public partial class Form2 : Form
     {
-        private ListViewItem selectedRow;
-        public Form2(ListViewItem selectedRow)
+        string[] rowElements; 
+        public Form2(string []rowElements)
         {
             InitializeComponent();
-            this.selectedRow = selectedRow;
+            this.rowElements = rowElements;
         }
 
-        private void listView1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void Form2_Load(object sender, EventArgs e)
         {
-            listView1.Items.Add(selectedRow);
+            dataGridView1.Columns.Add("","");
+            dataGridView1.Columns[0].Width = 400;
+            dataGridView1.Rows.Add(rowElements[0]);
+            for (int i = 1; i < rowElements.Length; i++)
+            {
+                if (rowElements[i] != "SKIP")
+                {
+                    dataGridView1.Rows.Add(rowElements[i]);
+                }
+            }
         }
     }
 }

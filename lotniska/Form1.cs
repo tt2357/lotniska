@@ -15,28 +15,41 @@ namespace lotniska
 {
     public partial class Form1 : Form
     {
-        bool[] chs;
-        
+        bool[] chs = new bool[6];
+     
         public Form1()
         {
-            
             InitializeComponent();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            if (listView1.SelectedItems.Count > 0)
-            {
-                ListViewItem selectedRow = (ListViewItem)listView1.SelectedItems[0].Clone();
 
-                Form2 Form2 = new Form2(selectedRow);
+                string[] rowElements = new string[listView1.Columns.Count];
+
+                ListViewItem selectedItem = listView1.SelectedItems[0];
+                rowElements[0]= selectedItem.SubItems[0].Text;
+                for (int i = 1; i < listView1.Columns.Count; i++)
+                {
+                    if (chs[i-1] == true)
+                    {
+                        rowElements[i] = selectedItem.SubItems[i].Text;
+                    }
+                    else
+                    {
+                        rowElements[i] = "SKIP";
+                    }
+                }
+                Form2 Form2 = new Form2(rowElements);
                 Form2.Show();
-            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            for (int i = 0; i < chs.Length; i++)
+            {
+                chs[i] = false;
+            }
             var LotniskaDataList = new List<DaneLotniska>();
             listView1.View = View.Details;
             listView1.Columns.Add("Nazwa lotniska");
@@ -96,26 +109,32 @@ namespace lotniska
 
         private void woj_CheckedChanged(object sender, EventArgs e)
         {
+            chs[1] = true;
         }
 
         private void ICAO_CheckedChanged(object sender, EventArgs e)
         {
+            chs[2] = true;
         }
 
         private void IATA_CheckedChanged(object sender, EventArgs e)
         {
+            chs[3] = true;
         }
 
         private void nazwa_CheckedChanged(object sender, EventArgs e)
         {
+            chs[0] = true;
         }
 
         private void lpas_CheckedChanged(object sender, EventArgs e)
         {
+            chs[4] = true;
         }
 
         private void zmiana_CheckedChanged(object sender, EventArgs e)
         {
+            chs[5] = true;
         }
     }
 }
